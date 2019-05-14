@@ -536,8 +536,12 @@ public class ServiceRunner {
 
     provisionerService.api().assignApplications(tenant.getIdentifier(), Collections.singletonList(assignedApp));
 
-    Assert.assertTrue(this.eventRecorder.wait(initialize_event, initialize_event));
-    Assert.assertTrue(this.eventRecorder.waitForMatch(EventConstants.OPERATION_PUT_APPLICATION_SIGNATURE,
+    Assert.assertTrue("Waiting for event '" + initialize_event + "' for service " + service.name() + " and tenant '" + tenant.getName() +"'",
+      this.eventRecorder.wait(initialize_event, initialize_event));
+
+    Assert.assertTrue("Waiting for event match '" + EventConstants.OPERATION_PUT_APPLICATION_SIGNATURE 
+      + "' for service " + service.name() + " and tenant '" + tenant.getName() +"'",
+      this.eventRecorder.waitForMatch(EventConstants.OPERATION_PUT_APPLICATION_SIGNATURE,
             (ApplicationSignatureEvent x) -> x.getApplicationIdentifier().equals(service.name())));
   }
 
