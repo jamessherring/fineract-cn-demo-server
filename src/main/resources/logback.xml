@@ -55,4 +55,8 @@
     <root level="INFO">
         <appender-ref ref="FILE"/>
     </root>
+
+    <logger name="test-logger" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
 </configuration>
